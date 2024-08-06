@@ -196,7 +196,7 @@ class AcDevice
 
     public function powerOff()
     {
-        $this->lastMode = $this->mode
+        $this->lastMode = $this->mode;
         $this->mode = 'off';
     }
 
