@@ -71,7 +71,7 @@ class MqttService
         $case = $topic[2];
 
         match ($case) {
-            'power' => $message === '1' ?: $acDevice->mode = 'off',
+            'power' => $message === '1' ? $acDevice->powerOn() : $acDevice->powerOff(),
             'mode' => $acDevice->mode = $message,
             'temperature' => $acDevice->temperature = (int)$message,
             'fan' => $acDevice->fanSpeed = $message,

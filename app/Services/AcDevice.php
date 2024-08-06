@@ -13,6 +13,7 @@ class AcDevice
     public int $temperature;
     public int $currentTemperature;
     public string $mode;
+    public string $lastMode;
     public string $fanSpeed;
     public string $swing;
     public array $raw;
@@ -191,5 +192,16 @@ class AcDevice
         $defaultConfiguration = '{"t_work_mode":["fan only","heat","cool","dry","auto"],"t_fan_speed":{"0":"auto","5":"super low","6":"low","7":"medium","8":"high","9":"super high"}}';
 
         return json_decode($defaultConfiguration, true);
+    }
+
+    public function powerOff()
+    {
+        $this->lastMode = $this->mode
+        $this->mode = 'off';
+    }
+
+    public function powerOn()
+    {
+        $this->mode = $this->lastMode;
     }
 }
