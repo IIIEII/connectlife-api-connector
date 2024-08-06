@@ -205,7 +205,7 @@ class AcDevice
         if (isset($this->lastMode)) {
             $this->mode = $this->lastMode;
         } else {
-            $this->mode = getHaModesSubset()[0];
+            $this->mode = $this->getHaModesSubset()[0];
         }
     }
 }
