@@ -49,7 +49,6 @@ class AcDevice
         $this->mode = $connectLifeAcDeviceStatus['statusList']['t_power'] === '0'
             ? 'off'
             : array_search($connectLifeAcDeviceStatus['statusList']['t_work_mode'], $this->modeOptions);
-        $this->lastMode = $this->mode;
 
         $this->raw = $connectLifeAcDeviceStatus;
     }
