@@ -13,6 +13,7 @@ class AcDevice
     public int $temperature;
     public int $currentTemperature;
     public string $mode;
+    public string $realMode;
     public string $fanSpeed;
     public string $swing;
     public array $raw;
@@ -45,9 +46,10 @@ class AcDevice
             }
         }
 
+        $this->realMode = array_search($connectLifeAcDeviceStatus['statusList']['t_work_mode'], $this->modeOptions);
         $this->mode = $connectLifeAcDeviceStatus['statusList']['t_power'] === '0'
             ? 'off'
-            : array_search($connectLifeAcDeviceStatus['statusList']['t_work_mode'], $this->modeOptions);
+            : $this->realMode;
 
         $this->raw = $connectLifeAcDeviceStatus;
     }
@@ -200,6 +202,6 @@ class AcDevice
 
     public function powerOn()
     {
-        $this->mode = array_search($connectLifeAcDeviceStatus['statusList']['t_work_mode'], $this->modeOptions);
+        $this->mode = $this->realMode;
     }
 }
