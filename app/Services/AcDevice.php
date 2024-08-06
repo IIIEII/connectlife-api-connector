@@ -13,7 +13,6 @@ class AcDevice
     public int $temperature;
     public int $currentTemperature;
     public string $mode;
-    public string $lastMode;
     public string $fanSpeed;
     public string $swing;
     public array $raw;
@@ -196,16 +195,11 @@ class AcDevice
 
     public function powerOff()
     {
-        $this->lastMode = $this->mode;
         $this->mode = 'off';
     }
 
     public function powerOn()
     {
-        if (isset($this->lastMode)) {
-            $this->mode = $this->lastMode;
-        } else {
-            $this->mode = $this->getHaModesSubset()[0];
-        }
+        $this->mode = array_search($connectLifeAcDeviceStatus['statusList']['t_work_mode'], $this->modeOptions);
     }
 }
