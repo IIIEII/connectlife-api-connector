@@ -89,7 +89,9 @@ class MqttService
     public function updateAcDevice(AcDevice $acDevice)
     {
         $this->connectlifeApiService->updateDevice($acDevice->id, $acDevice->toConnectLifeApiPropertiesArray());
-        sleep(3);
+        sleep(1);
+        $this->updateDevicesState();
+        sleep(5);
         $this->updateDevicesState();
     }
 
