@@ -214,7 +214,7 @@ class AcDevice
     {
         $this->sleep = 1;
         if ($this->fanSpeedFeatureEnabled()) {
-            $this->fanSpeed = 'super low'
+            $this->fanSpeed = "super low";
         }
     }
 
@@ -222,7 +222,7 @@ class AcDevice
     {
         $this->sleep = 0;
         if ($this->fanSpeedFeatureEnabled()) {
-            $this->fanSpeed = 'auto'
+            $this->fanSpeed = "auto";
         }
     }
 }
