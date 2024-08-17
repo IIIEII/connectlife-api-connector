@@ -97,7 +97,7 @@ class AcDevice
             't_temp_type' => $this->temperatureUnit->value,
             't_temp' => $this->temperature,
             't_beep' => (int)env('BEEPING', 0),
-            't_sleep' => $this->sleep
+            't_sleep' => strval($this->sleep)
         ];
 
         if ($this->swingFeatureEnabled()) {
