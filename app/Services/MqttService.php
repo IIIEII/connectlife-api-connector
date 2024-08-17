@@ -70,14 +70,13 @@ class MqttService
         $acDevice = $this->getAcDevice($topic[0]);
         $case = $topic[2];
 
-        Log::debug("Got mqtt", [$topic, $message]);
-
         match ($case) {
             'power' => $message === '1' ? $acDevice->powerOn() : $acDevice->powerOff(),
             'mode' => $acDevice->mode = $message,
             'temperature' => $acDevice->temperature = (int)$message,
             'fan' => $acDevice->fanSpeed = $message,
-            'swing' => $acDevice->swing = $message
+            'swing' => $acDevice->swing = $message,
+            'preset_mode' => $acDevice->sleep = $message === 'sleep' ? 1 : 0
         };
 
         $this->updateAcDevice($acDevice);
@@ -106,6 +105,7 @@ class MqttService
             $this->client->publish("$device->id/ac/temperature/get", $device->temperature);
             $this->client->publish("$device->id/ac/current-temperature/get", $device->currentTemperature);
             $this->client->publish("$device->id/ac/attributes/get", json_encode($device->raw['statusList']));
+            $this->client->publish("$device->id/ac/preset_mode/get", $device->sleep ? 'sleep' : 'none');
 
             if (isset($device->fanSpeed)) {
                 $this->client->publish("$device->id/ac/fan/get", $device->fanSpeed);
