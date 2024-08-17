@@ -16,6 +16,7 @@ class AcDevice
     public string $realMode;
     public string $fanSpeed;
     public string $swing;
+    public int $sleep;
     public array $raw;
 
     public array $modeOptions;
@@ -29,6 +30,7 @@ class AcDevice
         $this->temperatureUnit = TemperatureUnit::from($connectLifeAcDeviceStatus['statusList']['t_temp_type']);
         $this->temperature = (int)$connectLifeAcDeviceStatus['statusList']['t_temp'];
         $this->currentTemperature = (int)$connectLifeAcDeviceStatus['statusList']['f_temp_in'];
+        $this->sleep = (int)$connectLifeAcDeviceStatus['statusList']['t_sleep'];
 
         $deviceConfiguration = $this->getDeviceConfiguration($connectLifeAcDeviceStatus['deviceFeatureCode']);
 
@@ -94,7 +96,8 @@ class AcDevice
             't_power' => $this->mode === 'off' ? 0 : 1,
             't_temp_type' => $this->temperatureUnit->value,
             't_temp' => $this->temperature,
-            't_beep' => (int)env('BEEPING', 0)
+            't_beep' => (int)env('BEEPING', 0),
+            't_sleep' => $this->sleep
         ];
 
         if ($this->swingFeatureEnabled()) {
@@ -140,6 +143,8 @@ class AcDevice
             'temperature_state_topic' => "$this->id/ac/temperature/get",
             'current_temperature_topic' => "$this->id/ac/current-temperature/get",
             'json_attributes_topic' => "$this->id/ac/attributes/get",
+            'preset_mode_command_topic' => "$this->id/ac/preset_mode/set",
+            'preset_modes' => ["sleep"],
             'precision' => 0.5,
             'max_temp' => $this->temperatureUnit === TemperatureUnit::celsius ? 32 : 90,
             'min_temp' => $this->temperatureUnit === TemperatureUnit::celsius ? 16 : 61,

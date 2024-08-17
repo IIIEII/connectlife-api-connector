@@ -51,7 +51,7 @@ class MqttService
 
     public function setupDeviceSubscribes(string $id): void
     {
-        $options = ['mode', 'temperature', 'fan', 'swing', 'power'];
+        $options = ['mode', 'temperature', 'fan', 'swing', 'power', 'preset_mode'];
 
         foreach ($options as $option) {
             $topic = "$id/ac/$option/set";
@@ -69,6 +69,8 @@ class MqttService
         $topic = explode('/', $topic);
         $acDevice = $this->getAcDevice($topic[0]);
         $case = $topic[2];
+
+        Log::debug("Got mqtt", [$topic, $message]);
 
         match ($case) {
             'power' => $message === '1' ? $acDevice->powerOn() : $acDevice->powerOff(),
