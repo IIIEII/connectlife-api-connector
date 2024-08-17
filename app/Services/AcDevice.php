@@ -212,7 +212,7 @@ class AcDevice
 
     public function sleepOn()
     {
-        $this->sleep = 1
+        $this->sleep = 1;
         if ($this->fanSpeedFeatureEnabled()) {
             $this->fanSpeed = 'super low'
         }
@@ -220,7 +220,7 @@ class AcDevice
 
     public function sleepOff()
     {
-        $this->sleep = 0
+        $this->sleep = 0;
         if ($this->fanSpeedFeatureEnabled()) {
             $this->fanSpeed = 'auto'
         }
