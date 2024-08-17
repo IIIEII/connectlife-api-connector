@@ -209,4 +209,20 @@ class AcDevice
     {
         $this->mode = $this->realMode;
     }
+
+    public function sleepOn()
+    {
+        $this->sleep = 1
+        if ($this->fanSpeedFeatureEnabled()) {
+            $this->fanSpeed = 'super low'
+        }
+    }
+
+    public function sleepOff()
+    {
+        $this->sleep = 0
+        if ($this->fanSpeedFeatureEnabled()) {
+            $this->fanSpeed = 'auto'
+        }
+    }
 }
